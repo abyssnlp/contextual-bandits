@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "contextual-bandits"
+version = "0.0.1"
+description = "Showcasing contextual bandit algorithms"
+authors = ["abyssnlp <rawatshaurya1994@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "contextual_bandits"}]
+
+[tool.poetry.dependencies]
+python = ">=3.11,<4.0"
+numpy = "^2.3.1"
+torch = "^2.7.1"
+pandas = "^2.3.0"
+matplotlib = "^3.10.3"
+scikit-learn = "^1.7.0"
+seaborn = "^0.13.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
