@@ -45,3 +45,9 @@ def generate_marketing_data(
     df["hour_of_day"] = np.random.randint(0, 24, size=n_samples)
 
     return df
+
+
+if __name__ == "__main__":
+    df = generate_marketing_data(n_samples=100)
+    print(df.head())
+    print(df.where(df["unsubscribe"] == 1).head())
