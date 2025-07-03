@@ -45,7 +45,11 @@ class NeuralBandit(ContextualBandit):
         if random_state is not None:
             torch.manual_seed(random_state)
 
-        self.models = [NeuralNetwork(context_dim, hidden_dims) for _ in range(n_arms)]
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.models = [
+            NeuralNetwork(context_dim, hidden_dims).to(self.device)
+            for _ in range(n_arms)
+        ]
         self.optimizers = [
             optim.Adam(model.parameters(), lr=learning_rate) for model in self.models
         ]
@@ -58,7 +62,7 @@ class NeuralBandit(ContextualBandit):
         self.is_trained = [False] * n_arms
 
     def _context_to_tensor(self, context: np.ndarray) -> torch.Tensor:
-        return torch.tensor(context, dtype=torch.float32)
+        return torch.tensor(context, dtype=torch.float32, device=self.device)
 
     def select_arm(self, context: np.ndarray) -> int:
         context = np.array(context).reshape(-1)
